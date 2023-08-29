@@ -1,0 +1,18 @@
+<h1>My News</h1>
+<div class="function">
+    <a href="/board/">首页</a>
+    <a href="/board/list">所有新闻</a>
+    <form action="/board/search" method="get">
+        {% csrf_token %}
+        <input type="search" name="q" placeholder="搜索新闻" required>
+        <button type="submit">Search</button>
+    </form>
+</div>
+<div class="showlist">
+    {% for i in news %}
+    <p>
+        <a href="/board/blog/{{i.id}}">{{i.title}}</a>
+        <a>{{i.time}}</a>
+    </p>
+    {%endfor%}
+</div>

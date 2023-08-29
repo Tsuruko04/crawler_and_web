@@ -1,0 +1,39 @@
+<h1>My News</h1>
+<div class="function">
+    <a href="/board/">首页</a>
+    <a href="/board/list">所有新闻</a>
+    <form action="/board/search" method="get">
+        {% csrf_token %}
+        <input type="search" name="q" placeholder="搜索新闻" required>
+        <button type="submit">Search</button>
+    </form>
+</div>
+<h1>搜索结果：</h1>
+<div class="search-result">
+    <div class="search-by-title">按标题查找到的结果：
+        {% for item in bytitle %}
+        <p>
+            <a href="/board/blog/{{item.id}}" target="_blank">{{item.title}}</a>
+            <a>{{item.time}}</a>
+        </p>
+        {% endfor %}
+    </div>
+    <div class="search-by-text">按内容查找到的结果：
+        {% for item in bytext %}
+        <p>
+            <a href="/board/blog/{{item.id}}" target="_blank">{{item.title}}</a>
+            <a>{{item.time}}</a>
+        </p>
+        {% endfor %}
+    </div>
+    <div class="search-by-keys">按关键字查找到的结果：
+        {% for set in bykeys %}
+            {% for item in set %}
+                <p>
+                    <a href="/board/blog/{{item.id}}" target="_blank">{{item.title}}</a>
+                    <a>{{item.time}}</a>
+                </p>
+            {% endfor %}
+        {% endfor %}
+    </div>
+</div>

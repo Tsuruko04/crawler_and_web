@@ -1,0 +1,57 @@
+<h1>My News</h1>
+<div class="function">
+    <a href="/board/">首页</a>
+    <a href="/board/list">所有新闻</a>
+    <form action="/board/search" method="get">
+        {% csrf_token %}
+        <input type="search" name="q" placeholder="搜索新闻" required>
+        <button type="submit">Search</button>
+    </form>
+</div>
+<h1><a href="/board/blog/{{id}}"> {{ title }} </a></h1>
+<h2><a class='time'>{{time}}</a></h2>
+<div class="text">
+    <style> p {text-indent:2em;}</style>
+    <p>
+    {%for para in content %}
+        <p>
+            {{para}}
+        </p>
+    {%endfor%}
+    </p>
+</div>
+<p>
+    <img src='{{pic1}}' alt="">
+</p>
+<p>
+    <img src='{{pic2}}' alt="">
+</p>
+<p>
+    <img src='{{pic3}}' alt="">
+</p>
+<p>
+    <img src='{{pic4}}' alt="">
+</p>
+<p>
+    <img src='{{pic5}}' alt="">
+</p>
+<p> <h3>关键词：</h3>
+    <a class="keywords">{{key1}}</a>
+    <a class="keywords">{{key2}}</a>
+    <a class="keywords">{{key3}}</a>
+</p><h3>评论：</h3>
+{% if comments %}
+    <ul>
+    {% for comment in comments %}
+        <li>{{ comment.user }} : {{ comment.content }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>暂无评论</p>
+{% endif %}
+<form action="/board/comment/{{ id }}" method="post">  
+    {% csrf_token %}
+    user:<input type="text" name="user">       
+    comment:<input type="text" name="content">
+    <input type="submit" value="comment">
+</form>
